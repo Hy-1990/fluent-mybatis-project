@@ -1,6 +1,8 @@
 package com.hy.fmp.service.Impl;
 
 import cn.org.atool.fluent.mybatis.model.StdPagedList;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hy.fmp.dto.req.PageReq;
 import com.hy.fmp.fluent.entity.TestFluentMybatisEntity;
 import com.hy.fmp.fluent.mapper.TestFluentMybatisMapper;
@@ -25,5 +27,12 @@ public class SelectServiceImpl implements ISelectService {
         new TestFluentMybatisQuery()
             .selectAll()
             .limit(pageReq.getPage() * pageReq.getSize(), pageReq.getSize()));
+  }
+
+  @Override
+  public PageInfo<TestFluentMybatisEntity> selectAllByPage2(PageReq pageReq) {
+    PageHelper.startPage(pageReq.getPage(), pageReq.getSize());
+    return new PageInfo<>(
+        testFluentMybatisMapper.listEntity(new TestFluentMybatisQuery().selectAll()));
   }
 }

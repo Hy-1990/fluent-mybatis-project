@@ -1,9 +1,9 @@
 package com.hy.fmp.ctrl;
 
 import cn.org.atool.fluent.mybatis.model.StdPagedList;
+import com.github.pagehelper.PageInfo;
 import com.hy.fmp.dto.Result;
 import com.hy.fmp.dto.req.PageReq;
-import com.hy.fmp.dto.req.TestFluentMybatisQueryReq;
 import com.hy.fmp.enm.ErrorCode;
 import com.hy.fmp.fluent.entity.TestFluentMybatisEntity;
 import com.hy.fmp.service.ISelectService;
@@ -12,8 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Program: fluent-mybatis-project @ClassName: SelectController @Author: huyi @Date: 2021-10-24
@@ -33,6 +31,17 @@ public class SelectController {
   public Result<StdPagedList<TestFluentMybatisEntity>> selectAllPage(@RequestBody PageReq pageReq) {
     try {
       return Result.ok(selectService.selectAllByPage(pageReq));
+    } catch (Exception exception) {
+      return Result.error(ErrorCode.BASE_ERROR_CODE.getCode(), exception.getMessage(), null);
+    }
+  }
+
+  @ApiOperation(value = "分页查询所有数据2", notes = "分页查询所有数据2")
+  @RequestMapping(value = "/selectAllPage2", method = RequestMethod.POST)
+  @ResponseBody
+  public Result<PageInfo<TestFluentMybatisEntity>> selectAllPage2(@RequestBody PageReq pageReq) {
+    try {
+      return Result.ok(selectService.selectAllByPage2(pageReq));
     } catch (Exception exception) {
       return Result.error(ErrorCode.BASE_ERROR_CODE.getCode(), exception.getMessage(), null);
     }
