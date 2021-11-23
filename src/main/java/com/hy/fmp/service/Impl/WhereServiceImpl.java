@@ -17,7 +17,7 @@ import java.util.List;
 /** @Author huyi @Date 2021/11/8 20:10 @Description: where语法接口实现类 */
 @Slf4j
 @Service
-public class IWhereServiceImpl implements IWhereService {
+public class WhereServiceImpl implements IWhereService {
   @Autowired private TestFluentMybatisMapper testFluentMybatisMapper;
 
   @Override
